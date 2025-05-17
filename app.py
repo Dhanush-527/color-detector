@@ -19,8 +19,8 @@ def get_color_name(R, G, B, color_data):
     closest_color = None
     for _, row in color_data.iterrows():
         try:
-          d = ((R - int(row['R']))**2 + (G - int(row['G']))**2 + (B - int(row['B']))**2) * 0.5  # Euclidean distance
-          if d < min_dist:
+            d = ((R - int(row['R']))**2 + (G - int(row['G']))**2 + (B - int(row['B']))**2) ** 0.5  # Euclidean distance
+            if d < min_dist:
                 min_dist = d
                 closest_color = row
         except Exception as e:
@@ -38,7 +38,7 @@ uploaded_file = st.file_uploader("Upload an Image", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert("RGB")
-    st.write("*Click on the image below to detect a color*")
+    st.write("**Click on the image below to detect a color**")
 
     coords = streamlit_image_coordinates(image, key="click_image")
 
@@ -68,3 +68,4 @@ if uploaded_file is not None:
             """, unsafe_allow_html=True)
         else:
             st.warning("Clicked outside image bounds.")
+
